@@ -5,10 +5,10 @@ import (
 )
 
 func count(s string, t string) bool {
-	s_m, t_m := s2i(s), s2i(t)
-	lenS := len(s_m)
+	sM, tM := s2i(s), s2i(t)
+	lenS := len(sM)
 	for i := 0; i < lenS; i++ {
-		if s_m[i] != t_m[i] {
+		if sM[i] != tM[i] {
 			return false
 		}
 	}
