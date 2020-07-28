@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func count(s string, t string) bool {
+func isIsomorphic(s string, t string) bool {
 	sM, tM := s2i(s), s2i(t)
 	lenS := len(sM)
 	for i := 0; i < lenS; i++ {
@@ -35,9 +35,9 @@ func s2i(s string) []int {
 }
 
 func main() {
-	s := "add"
-	t := "ege"
+	s := "foo"
+	t := "bar"
 
-	d := count(s, t)
+	d := isIsomorphic(s, t)
 	fmt.Println(d)
 }
