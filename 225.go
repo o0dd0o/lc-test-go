@@ -1,5 +1,9 @@
 package main
 
+import (
+	"container/list"
+)
+
 /**
 使用队列实现栈的下列操作：
 
@@ -18,31 +22,47 @@ empty() -- 返回栈是否为空
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 type MyStack struct {
+	l1 *list.List
+	l2 *list.List
 }
 
 /** Initialize your data structure here. */
 func Constructor() MyStack {
-
+	return MyStack{l1: list.New(), l2: list.New()}
 }
 
 /** Push element x onto stack. */
 func (this *MyStack) Push(x int) {
-
+	this.l1.PushBack(x)
 }
 
 /** Removes the element on top of the stack and returns that element. */
-func (this *MyStack) Pop() int {
 
+func (this *MyStack) Pop() int {
+	for this.l1.Front().Next() != nil {
+		this.l2.PushBack(this.l1.Remove(this.l1.Front()))
+	}
+	head := this.l1.Front().Value.(int)
+	this.l1.Remove(this.l1.Front())
+	this.l1, this.l2 = this.l2, this.l1
+	return head
 }
 
 /** Get the top element. */
 func (this *MyStack) Top() int {
+	for this.l1.Front().Next() != nil {
+		this.l2.PushBack(this.l1.Remove(this.l1.Front()))
+	}
 
+	head := this.l1.Front().Value.(int)
+	this.l2.PushBack(this.l1.Remove(this.l1.Front()))
+	this.l1, this.l2 = this.l2, this.l1
+	return head
 }
 
 /** Returns whether the stack is empty. */
 func (this *MyStack) Empty() bool {
-
+	return this.l1.Front() == nil
 }
 
 /**
@@ -53,3 +73,12 @@ func (this *MyStack) Empty() bool {
  * param_3 := obj.Top();
  * param_4 := obj.Empty();
  */
+func main() {
+	obj := Constructor()
+	obj.Push(3)
+	obj.Push(4)
+	param_2 := obj.Pop()
+	param_3 := obj.Top()
+	param_4 := obj.Empty()
+	println(param_2, param_3, param_4)
+}
