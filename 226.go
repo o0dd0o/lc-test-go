@@ -1,5 +1,7 @@
 package main
 
+import "container/list"
+
 /**
 翻转一棵二叉树。
 
@@ -44,8 +46,45 @@ type TreeNode struct {
 }
 
 func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return root
+	}
+	l := list.New()
+	l.PushBack(root)
+	for l.Front() != nil {
+		t := l.Front()
+		l.Remove(t)
+		p := t.Value.(*TreeNode)
+		if p.Left != nil {
+			l.PushBack(p.Left)
+		}
+		if p.Right != nil {
+			l.PushBack(p.Right)
+		}
+		p.Left, p.Right = p.Right, p.Left
+	}
+	return root
+}
+
+func printTree(root *TreeNode) {
+	if root.Left != nil {
+		printTree(root.Left)
+	}
+	print(root.Val)
+	if root.Right != nil {
+		printTree(root.Right)
+	}
 
 }
 func main() {
-
+	a := &TreeNode{Val: 1}
+	b := &TreeNode{Val: 3}
+	c := &TreeNode{Val: 2, Left: a, Right: b}
+	d := &TreeNode{Val: 6}
+	e := &TreeNode{Val: 9}
+	f := &TreeNode{Val: 7, Left: d, Right: e}
+	h := &TreeNode{Val: 4, Left: c, Right: f}
+	printTree(h)
+	println()
+	printTree(invertTree(h))
 }
