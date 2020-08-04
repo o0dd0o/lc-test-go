@@ -1,7 +1,5 @@
 package main
 
-import "container/list"
-
 /**
 使用栈实现队列的下列操作：
 
@@ -33,32 +31,54 @@ queue.empty(); // 返回 false
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 type MyQueue struct {
-	l1 *list.List
+	s1 []int
+	s2 []int
 }
 
 /** Initialize your data structure here. */
 func Constructor() MyQueue {
-	return MyQueue{l1: list.New()}
+	return MyQueue{s1: []int{}}
 }
 
 /** Push element x to the back of queue. */
 func (this *MyQueue) Push(x int) {
-
+	this.s1 = append(this.s1, x)
 }
 
 /** Removes the element from in front of queue and returns that element. */
 func (this *MyQueue) Pop() int {
-
+	this.s2 = []int{}
+	for len(this.s1) > 0 {
+		this.s2 = append(this.s2, this.s1[len(this.s1)-1])
+		this.s1 = this.s1[:len(this.s1)-1]
+	}
+	v := this.s2[len(this.s2)-1]
+	this.s2 = this.s2[:len(this.s2)-1]
+	for len(this.s2) > 0 {
+		this.s1 = append(this.s1, this.s2[len(this.s2)-1])
+		this.s2 = this.s2[:len(this.s2)-1]
+	}
+	return v
 }
 
 /** Get the front element. */
 func (this *MyQueue) Peek() int {
-
+	this.s2 = []int{}
+	for len(this.s1) > 0 {
+		this.s2 = append(this.s2, this.s1[len(this.s1)-1])
+		this.s1 = this.s1[:len(this.s1)-1]
+	}
+	v := this.s2[len(this.s2)-1]
+	for len(this.s2) > 0 {
+		this.s1 = append(this.s1, this.s2[len(this.s2)-1])
+		this.s2 = this.s2[:len(this.s2)-1]
+	}
+	return v
 }
 
 /** Returns whether the queue is empty. */
 func (this *MyQueue) Empty() bool {
-
+	return len(this.s1) == 0
 }
 
 /**
@@ -70,5 +90,11 @@ func (this *MyQueue) Empty() bool {
  * param_4 := obj.Empty();
  */
 func main() {
-
+	obj := Constructor()
+	obj.Push(3)
+	obj.Push(4)
+	param_2 := obj.Peek()
+	param_3 := obj.Pop()
+	param_4 := obj.Empty()
+	println(param_2, param_3, param_4)
 }
