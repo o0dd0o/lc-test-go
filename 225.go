@@ -27,7 +27,7 @@ type MyStack struct {
 }
 
 /** Initialize your data structure here. */
-func Constructor() MyStack {
+func Constructor225() MyStack {
 	return MyStack{l1: list.New(), l2: list.New()}
 }
 
@@ -74,7 +74,7 @@ func (this *MyStack) Empty() bool {
  * param_4 := obj.Empty();
  */
 func main() {
-	obj := Constructor()
+	obj := Constructor225()
 	obj.Push(3)
 	obj.Push(4)
 	param_2 := obj.Pop()

@@ -1,5 +1,7 @@
 package main
 
+import "container/list"
+
 /**
 使用栈实现队列的下列操作：
 
@@ -31,11 +33,12 @@ queue.empty(); // 返回 false
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 type MyQueue struct {
+	l1 *list.List
 }
 
 /** Initialize your data structure here. */
 func Constructor() MyQueue {
-
+	return MyQueue{l1: list.New()}
 }
 
 /** Push element x to the back of queue. */
