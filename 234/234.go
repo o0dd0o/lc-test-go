@@ -31,7 +31,7 @@ type ListNode struct {
 }
 
 func isPalindrome(head *ListNode) bool {
-
+	return false
 }
 func main() {
 
