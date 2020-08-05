@@ -31,8 +31,41 @@ type ListNode struct {
 }
 
 func isPalindrome(head *ListNode) bool {
+	lenL := 0
+	for top := head; top != nil; top = top.Next {
+		lenL += 1
+	}
+
+	if lenL == 0 {
+		return false
+	}
+
+	slow, fast, c := head, head, 0
+	/**
+		1 -> 2 -> 2 -> 1
+	         s	  f
+		1 -> 2 -> 3 -> 2 -> 1
+			 s    f
+	              s        f
+		1 -> 2 -> 3 -> 3 -> 2 -> 1
+	         s    f
+	              s         f
+		1 -> 2 -> 3 -> 4 -> 3 -> 2 -> 1
+			 s    f
+	              s         f
+	                   s              f
+	*/
+	for true {
+		break
+	}
+
 	return false
 }
-func main() {
 
+func main() {
+	a := &ListNode{Val: 1}
+	b := &ListNode{Val: 2, Next: a}
+	c := &ListNode{Val: 2, Next: b}
+	d := &ListNode{Val: 1, Next: c}
+	println(isPalindrome(d))
 }
