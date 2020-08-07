@@ -1,7 +1,5 @@
 package main
 
-import "container/list"
-
 /**
 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
 
@@ -49,11 +47,7 @@ type TreeNode struct {
 }
 
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-	dfs := func(a *TreeNode) {
-		if a. {
-			
-		}
-	}
+
 	return root
 }
 
