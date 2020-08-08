@@ -47,8 +47,34 @@ type TreeNode struct {
 }
 
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	parentmap := map[int]*TreeNode{}
+	var dfs func(*TreeNode)
+	dfs = func(a *TreeNode) {
+		if a.Left != nil {
+			parentmap[a.Left.Val] = a
+			dfs(a.Left)
+		}
 
-	return root
+		if a.Right != nil {
+			parentmap[a.Right.Val] = a
+			dfs(a.Right)
+		}
+
+	}
+	if root == nil {
+		return root
+	}
+	dfs(root)
+	qmap := map[int]*TreeNode{}
+
+	for t := q; t != nil; t = parentmap[t.Val] {
+		qmap[t.Val] = t
+	}
+	t := p
+	for ; qmap[t.Val] == nil; t = parentmap[t.Val] {
+
+	}
+	return t
 }
 
 func main() {
