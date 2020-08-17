@@ -27,11 +27,12 @@ package main
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func isPowerOfThree(n int) bool {
-	return false
+	return n == 0 || 1162261467%n == 0
 }
+
 func main() {
-	println(isPowerOfTwo(27))
-	println(isPowerOfTwo(0))
-	println(isPowerOfTwo(9))
-	println(isPowerOfTwo(45))
+	println(isPowerOfThree(27))
+	println(isPowerOfThree(0))
+	println(isPowerOfThree(9))
+	println(isPowerOfThree(45))
 }
