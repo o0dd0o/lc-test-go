@@ -11,7 +11,7 @@ func topKFrequent(nums []int, k int) []int {
 	for k, _ := range mapq {
 		mapp = append(mapp, k)
 	}
-	kuaisu(mapq, mapp, 0, len(mapp)-1)
+	mapp = jishu(mapq, mapp)
 	var re []int
 	lens := len(mapq)
 	for i := 0; i < k; i++ {
@@ -139,6 +139,54 @@ func kuaisu(arr map[int]int, mapq []int, s, l int) {
 		kuaisu(arr, mapq, s1+1, l1)
 	}
 }
+func dui(arr map[int]int, mapq []int) {
+	lens := len(mapq)
+	for i := lens / 2; i >= 0; i-- {
+		shiftDown(arr, mapq, i, lens)
+	}
+
+	for i := lens - 1; i >= 0; i-- {
+		mapq[i], mapq[0] = mapq[0], mapq[i]
+		shiftDown(arr, mapq, 0, i)
+	}
+
+}
+func shiftDown(arr map[int]int, mapq []int, index int, lens int) {
+	tar := 2 * index
+	if tar+1 < lens && arr[mapq[tar+1]] > arr[mapq[tar]] {
+		tar++
+	}
+	if tar < lens && arr[mapq[tar]] > arr[mapq[index]] {
+		mapq[tar], mapq[index] = mapq[index], mapq[tar]
+		shiftDown(arr, mapq, tar, lens)
+	}
+}
+func jishu(arr map[int]int, mapq []int) []int {
+	re := []int{}
+	lens := len(mapq)
+	max, min := arr[mapq[0]], arr[mapq[0]]
+	for i := 1; i < lens; i++ {
+		if arr[mapq[i]] > max {
+			max = arr[mapq[i]]
+		}
+		if min > arr[mapq[i]] {
+			min = arr[mapq[i]]
+		}
+	}
+	bu := make(map[int][]int, max-min+1)
+	for i := 0; i < lens; i++ {
+		bu[arr[mapq[i]]] = append(bu[arr[mapq[i]]], mapq[i])
+	}
+
+	for i := min; i <= max; i++ {
+		for _, v := range bu[i] {
+			re = append(re, v)
+		}
+	}
+
+	return re
+}
+
 func main() {
 	fmt.Printf("%v\n", topKFrequent([]int{1, 1, 1, 2, 2, 3}, 2))
 	fmt.Printf("%v\n", topKFrequent([]int{1}, 1))
